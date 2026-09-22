@@ -67,10 +67,25 @@ python3 -m http.server 8000
 ## 協作流程
 
 1. Fork 此 Repository。
-2. 在自己的 Fork 建立修改並 Push。
-3. 向本 Repository 建立 Pull Request。
-4. Pull Request 通過檢查並 Merge 至 `main`。
-5. Vercel 自動重新部署正式網站。
+2. 從 Host 的 `develop` 建立自己 Fork 中的 `develop` 分支。
+3. 在自己的 `develop` 分支修改、Commit 並 Push。
+4. 建立 Pull Request：組員 `develop` → Host `develop`。
+5. 組長檢查並將 Pull Request Merge 至 Host `develop`。
+6. 所有功能在 Host `develop` 完成整合測試。
+7. 確認功能正常後，將 Host `develop` 合併至 `main`。
+8. Vercel 偵測到 `main` 更新後，自動重新部署正式網站。
+
+```text
+組員 Fork／develop
+        ↓ Pull Request
+Host develop
+        ↓ 整合測試完成
+Host main
+        ↓
+Vercel 自動部署正式網站
+```
+
+建立 Pull Request 時，請確認 `base repository` 是本專案，而且 `base branch` 是 `develop`，不要直接提交到 `main`。
 
 ## API 金鑰安全
 
