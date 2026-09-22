@@ -62,7 +62,7 @@ button { color: inherit; }
 .hero { min-height: 540px; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 80px; padding-block: 85px 70px; }
 .eyebrow { margin: 0 0 28px; color: var(--primary); font-size: 12px; font-weight: 800; letter-spacing: .18em; }
 .hero h1 { margin: 0; font-size: clamp(36px, 4vw, 52px); line-height: 1.12; letter-spacing: -.045em; }
-.hero h1 span { color: transparent; background: linear-gradient(95deg, #57c7ff, #a7e7ff); background-clip: text; }
+.hero h1 span { display: inline-block; margin-top: 14px; color: transparent; background: linear-gradient(95deg, #57c7ff, #a7e7ff); background-clip: text; }
 .hero-copy { max-width: 630px; margin: 30px 0 0; color: var(--muted); font-size: 17px; }
 .glass-card { background: linear-gradient(145deg, rgba(21,43,67,.82), rgba(13,28,46,.78)); border: 1px solid var(--line); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
 .hero-status { position: relative; overflow: hidden; padding: 30px; border-radius: 32px; }
@@ -163,6 +163,7 @@ button { color: inherit; }
   .refresh-button span { display: none; }
   .hero { padding-block: 58px 40px; }
   .hero h1 { font-size: 36px; }
+  .hero h1 span { margin-top: 10px; }
   .dashboard-section { padding-block: 60px; }
   .section-heading { align-items: stretch; flex-direction: column; }
   .uv-grid { grid-template-columns: 1fr; }
