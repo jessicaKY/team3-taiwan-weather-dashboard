@@ -13,8 +13,9 @@
 
 /* 卡片內部排版 */
 .forecast-top, .forecast-temp, .forecast-meta { display: flex; align-items: center; justify-content: space-between; }
+.forecast-city { min-width: 0; display: flex; align-items: center; gap: 10px; }
 .forecast-city strong { display: block; font-size: 18px; }
-.forecast-period-button { min-height: 36px; display: inline-flex; align-items: center; gap: 7px; margin-top: 9px; padding: 7px 12px; color: var(--primary); border: 1px solid rgba(87,199,255,.42); border-radius: 999px; background: transparent; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; touch-action: manipulation; transition: color .2s, background-color .2s, border-color .2s, transform .15s; }
+.forecast-period-button { min-height: 36px; display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; color: var(--primary); border: 1px solid rgba(87,199,255,.42); border-radius: 999px; background: transparent; font: inherit; font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; touch-action: manipulation; transition: color .2s, background-color .2s, border-color .2s, transform .15s; }
 .forecast-period-button:hover, .forecast-period-button:focus-visible { color: #dff6ff; border-color: var(--primary); background: rgba(87,199,255,.13); outline: none; }
 .forecast-period-button:focus-visible { box-shadow: 0 0 0 3px rgba(87,199,255,.18); }
 .forecast-period-button:active { transform: scale(.97); }
