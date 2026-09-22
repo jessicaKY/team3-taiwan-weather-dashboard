@@ -97,15 +97,30 @@ function buildStationLookup(records) {
 
 function normalizeUv(records, stationRecords) {
   const stationLookup = buildStationLookup(stationRecords);
-  return collectUvLocations(records).map((item) => ({
-    stationId: String(get(item, ["StationID", "StationId", "stationID", "stationId"], "")),
-    value: findUvValue(item),
-  })).map((item) => ({
-    ...item,
-    station: stationLookup.get(item.stationId)?.station || `測站 ${item.stationId || "未提供"}`,
-    county: stationLookup.get(item.stationId)?.county || "地區未提供",
-  })).filter((item) => item.value > 0).sort((a, b) => b.value - a.value).slice(0, 6);
+  
+  const allList = collectUvLocations(records).map((item) => {
+    const stationId = String(get(item, ["StationID", "StationId", "stationID", "stationId"], ""));
+    const lookup = stationLookup.get(stationId);
+    return {
+      stationId,
+      value: findUvValue(item),
+      station: lookup?.station || `測站 ${stationId || "未提供"}`,
+      county: lookup?.county || "地區未提供",
+    };
+  }).filter((item) => item.value > 0 && item.county !== "地區未提供");
+
+  const maxByCountyMap = new Map();
+
+  for (const item of allList) {
+    const currentMax = maxByCountyMap.get(item.county);
+    if (!currentMax || item.value > currentMax.value) {
+      maxByCountyMap.set(item.county, item);
+    }
+  }
+
+  return Array.from(maxByCountyMap.values()).sort((a, b) => b.value - a.value);
 }
+
 
 function readForecastElement(location, elementName) {
   const elements = location.weatherElement || location.WeatherElement || [];
@@ -166,12 +181,22 @@ function uvInfo(value) {
   return { label: "危險級", color: "#b77cff", bars: 5 };
 }
 
-function renderUv(items) {
+function renderUv(items = state.uv) {
+  const keyword = normalizeSearchText($("#uv-search")?.value || "");
+
   if (!items.length) {
+    if ($("#uv-empty-state")) $("#uv-empty-state").hidden = true;
     $("#uv-list").innerHTML = `<div class="glass-card unavailable-card">${unavailableMarkup("紫外線資料")}</div>`;
     return;
   }
-  const data = items;
+
+  const data = items.filter((item) =>
+    normalizeSearchText(item.county).includes(keyword) ||
+    normalizeSearchText(item.station).includes(keyword)
+  );
+
+  if ($("#uv-empty-state")) $("#uv-empty-state").hidden = data.length > 0;
+
   $("#uv-list").innerHTML = data.map((item) => {
     const info = uvInfo(item.value);
     return `<article class="uv-card glass-card" style="--level-color:${info.color}">
@@ -181,6 +206,7 @@ function renderUv(items) {
     </article>`;
   }).join("");
 }
+
 
 function weatherIcon(weather = "") {
   if (/雷/.test(weather)) return "⛈️";
@@ -254,6 +280,7 @@ async function loadWeatherData({ announce = false } = {}) {
 
 formatDate();
 $("#city-search").addEventListener("input", () => renderForecast());
+$("#uv-search")?.addEventListener("input", () => renderUv()); 
 $("#refresh-button").addEventListener("click", () => loadWeatherData({ announce: true }));
 document.addEventListener("click", (event) => {
   if (event.target.closest(".retry-data")) loadWeatherData({ announce: true });
