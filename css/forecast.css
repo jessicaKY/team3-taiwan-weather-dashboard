@@ -10,12 +10,14 @@
 .forecast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .forecast-card { padding: 24px; border-radius: var(--radius); cursor: pointer; user-select: none; transition: transform .2s, border-color .2s; }
 .forecast-card:hover { transform: translateY(-4px); border-color: rgba(87,199,255,.3); }
-.forecast-card:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 
 /* 卡片內部排版 */
 .forecast-top, .forecast-temp, .forecast-meta { display: flex; align-items: center; justify-content: space-between; }
 .forecast-city strong { display: block; font-size: 18px; }
-.forecast-city span { color: var(--muted); font-size: 11px; }
+.forecast-period-button { min-height: 36px; display: inline-flex; align-items: center; gap: 7px; margin-top: 9px; padding: 7px 12px; color: var(--primary); border: 1px solid rgba(87,199,255,.42); border-radius: 999px; background: transparent; font: inherit; font-size: 11px; font-weight: 700; cursor: pointer; touch-action: manipulation; transition: color .2s, background-color .2s, border-color .2s, transform .15s; }
+.forecast-period-button:hover, .forecast-period-button:focus-visible { color: #dff6ff; border-color: var(--primary); background: rgba(87,199,255,.13); outline: none; }
+.forecast-period-button:focus-visible { box-shadow: 0 0 0 3px rgba(87,199,255,.18); }
+.forecast-period-button:active { transform: scale(.97); }
 .weather-icon { font-size: 34px; filter: drop-shadow(0 8px 14px rgba(87,199,255,.25)); }
 .forecast-temp { margin: 27px 0 22px; align-items: end; }
 .forecast-temp strong { font-size: 44px; line-height: 1; letter-spacing: -.05em; }
