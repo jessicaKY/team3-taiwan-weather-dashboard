@@ -52,13 +52,15 @@ function renderForecast(items = forecastData) {
 
   $("#empty-state").hidden = data.length > 0;
   $("#forecast-list").innerHTML = data.map((item) => `
-    <article class="forecast-card glass-card" tabindex="0" role="button" aria-label="${item.city}天氣預報，點擊或按 Enter 切換時段" title="點擊切換時段">
+    <article class="forecast-card glass-card">
       ${item.periods.map((period, i) => `
         <div class="period-content" style="display: ${i === 0 ? 'block' : 'none'};">
           <div class="forecast-top">
             <div class="forecast-city">
               <strong>${item.city}</strong>
-              <span style="color: var(--primary);">${periodLabels[i]} ⟳</span>
+              <button class="forecast-period-button" type="button" aria-label="${item.city}${periodLabels[i]}，切換下一個預報時段">
+                <span>${periodLabels[i]}</span><span aria-hidden="true">↻</span>
+              </button>
             </div>
             <span class="weather-icon">${weatherIcon(period.weather)}</span>
           </div>
@@ -131,10 +133,10 @@ $("#forecast-list").addEventListener("click", (event) => {
 
 $("#forecast-list").addEventListener("keydown", (event) => {
   if (event.key !== "Enter" && event.key !== " ") return;
-  const card = event.target.closest(".forecast-card");
-  if (!card) return;
+  const button = event.target.closest(".forecast-period-button");
+  if (!button) return;
   event.preventDefault();
-  switchForecastPeriod(card);
+  switchForecastPeriod(button.closest(".forecast-card"));
 });
 
 //立刻抓取資料
