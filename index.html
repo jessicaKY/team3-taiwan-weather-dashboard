@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/forecast.css">
 </head>
 <body>
   <div class="ambient ambient-one"></div>
@@ -85,17 +86,21 @@
     </section>
 
     <section class="dashboard-section container" id="uv">
-      <div class="section-heading">
+      <div class="section-heading forecast-heading">
         <div>
           <p class="eyebrow">UV INDEX</p>
-          <h2>紫外線觀測</h2>
-          <p>顯示全臺今日紫外線指數最大值最高的六個測站，外出前別忘了做好防曬</p>
+          <h2>各縣市紫外線觀測</h2>
+          <p>顯示全臺各地今日紫外線指數最高的測站，並依紫外線指數由高到低排列，外出前別忘了做好防曬</p>
         </div>
-        <div class="uv-scale" aria-label="紫外線指數色階"><i></i><i></i><i></i><i></i><i></i></div>
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="uv-search" type="search" placeholder="搜尋縣市" autocomplete="off">
+        </label>
       </div>
       <div class="uv-grid" id="uv-list" aria-live="polite">
         <div class="glass-card uv-card skeleton-card"></div><div class="glass-card uv-card skeleton-card"></div><div class="glass-card uv-card skeleton-card"></div>
       </div>
+      <p class="empty-state" id="uv-empty-state" hidden>找不到符合的縣市，請換個關鍵字試試。</p>
     </section>
 
     <section class="dashboard-section forecast-section container" id="forecast">
@@ -135,5 +140,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/forecast.js"></script>
 </body>
 </html>

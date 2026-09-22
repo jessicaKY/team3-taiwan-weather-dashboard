@@ -1,0 +1,45 @@
+.forecast-section { padding-bottom: 120px; }
+.forecast-heading { align-items: center; }
+
+/* 搜尋框 */
+.search-box { width: 260px; display: flex; align-items: center; gap: 10px; padding: 11px 15px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.04); color: var(--muted); }
+.search-box input { width: 100%; border: 0; outline: 0; color: var(--text); background: transparent; }
+.search-box input::placeholder { color: #6f8499; }
+
+/* 預報卡片網格與卡片本體 */
+.forecast-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.forecast-card { padding: 24px; border-radius: var(--radius); cursor: pointer; user-select: none; transition: transform .2s, border-color .2s; }
+.forecast-card:hover { transform: translateY(-4px); border-color: rgba(87,199,255,.3); }
+.forecast-card:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+/* 卡片內部排版 */
+.forecast-top, .forecast-temp, .forecast-meta { display: flex; align-items: center; justify-content: space-between; }
+.forecast-city strong { display: block; font-size: 18px; }
+.forecast-city span { color: var(--muted); font-size: 11px; }
+.weather-icon { font-size: 34px; filter: drop-shadow(0 8px 14px rgba(87,199,255,.25)); }
+.forecast-temp { margin: 27px 0 22px; align-items: end; }
+.forecast-temp strong { font-size: 44px; line-height: 1; letter-spacing: -.05em; }
+.forecast-temp span { max-width: 130px; color: var(--muted); font-size: 12px; text-align: right; }
+
+/* 卡片底部資訊 */
+.forecast-meta { padding-top: 18px; border-top: 1px solid var(--line); }
+.forecast-meta div { display: flex; flex-direction: column; }
+.forecast-meta span { color: var(--muted); font-size: 10px; }
+.forecast-meta strong { margin-top: 2px; font-size: 13px; }
+
+/* 搜尋不到結果的提示文字 */
+.empty-state { padding: 60px; color: var(--muted); text-align: center; }
+
+
+@media (max-width: 900px) {
+  /* 平板：一行顯示 2 張卡片 */
+  .forecast-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 620px) {
+  /* 手機版：標題與搜尋框排版調整 */
+  .forecast-heading { align-items: stretch; flex-direction: column; }
+  .search-box { width: 100%; }
+  /* 手機版：一行顯示 1 張卡片 */
+  .forecast-grid { grid-template-columns: 1fr; }
+}
